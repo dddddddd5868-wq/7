@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+<main>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="reveal">
+        <span class="section__tag">Digital-агентство</span>
+        <h1 class="hero__title">Цифровые решения для <span class="gradient-text">вашего бизнеса</span></h1>
+        <p class="hero__text">{{ company.name }} — команда разработчиков, дизайнеров и маркетологов. Мы превращаем идеи в работающие продукты.</p>
+        <div class="hero__buttons">
+          <a href="{% url 'services' %}" class="btn btn-primary">Наши услуги</a>
+          <a href="{% url 'about' %}" class="btn btn-outline">О проекте</a>
+        </div>
+      </div>
+      <img src="{% static 'img/hero.svg' %}" alt="{{ company.name }}" class="hero__img">
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="stats">
+        <div class="stat reveal"><div class="stat__num gradient-text" data-count="120" data-suffix="+">0</div><div class="stat__label">Проектов</div></div>
+        <div class="stat reveal"><div class="stat__num gradient-text" data-count="85" data-suffix="+">0</div><div class="stat__label">Клиентов</div></div>
+        <div class="stat reveal"><div class="stat__num gradient-text" data-count="7">0</div><div class="stat__label">Лет на рынке</div></div>
+        <div class="stat reveal"><div class="stat__num gradient-text" data-count="25">0</div><div class="stat__label">Специалистов</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__tag">Услуги</span>
+        <h2 class="section__title">Что мы делаем</h2>
+        <p class="section__text">Полный цикл digital-услуг: от идеи до запуска и продвижения.</p>
+      </div>
+      <div class="services">
+        {% for s in services %}
+        <article class="service-card reveal">
+          <img src="{{ s.image.url }}" alt="{{ s.title }}" class="service-card__img">
+          <div class="service-card__body">
+            <h3 class="service-card__title">{{ s.title }}</h3>
+            <p class="service-card__text">{{ s.description }}</p>
+            <div class="service-card__footer">
+              <span class="service-card__price"><small>от</small> {{ s.price|floatformat:"0g" }} ₸</span>
+              <a href="{% url 'contacts' %}" class="btn btn-outline">Заказать</a>
+            </div>
+          </div>
+        </article>
+        {% empty %}
+        <p class="services__empty">Услуг пока нет</p>
+        {% endfor %}
+      </div>
+      <div class="section__more"><a href="{% url 'services' %}" class="btn btn-primary">Все услуги</a></div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__tag">Преимущества</span>
+        <h2 class="section__title">Почему выбирают нас</h2>
+      </div>
+      <div class="features">
+        <div class="feature reveal"><div class="feature__icon">⚡</div><h3 class="feature__title">Быстро</h3><p class="feature__text">Чёткие сроки и поэтапная сдача проекта.</p></div>
+        <div class="feature reveal"><div class="feature__icon">🎯</div><h3 class="feature__title">Под ваши цели</h3><p class="feature__text">Решения строим вокруг задач бизнеса.</p></div>
+        <div class="feature reveal"><div class="feature__icon">🛡</div><h3 class="feature__title">Надёжно</h3><p class="feature__text">Гарантия и поддержка после запуска.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="cta reveal">
+        <h2 class="cta__title">Готовы начать проект?</h2>
+        <p class="cta__text">Расскажите о задаче — мы предложим решение и рассчитаем стоимость бесплатно.</p>
+        <a href="{% url 'contacts' %}" class="btn">Оставить заявку</a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

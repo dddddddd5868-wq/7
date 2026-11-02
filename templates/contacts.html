@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Контакты{% endblock %}
+{% block content %}
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-hero__title">Контакты</h1>
+      <p class="breadcrumbs"><a href="{% url 'home' %}">Главная</a> / Контакты</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="contacts">
+        <div class="contact-info reveal">
+          {% if company %}
+          <div class="contact-item">
+            <div class="contact-item__icon">📞</div>
+            <div><div class="contact-item__label">Телефон</div><div class="contact-item__value"><a href="tel:{{ company.phone_link }}">{{ company.phone }}</a></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon">✉</div>
+            <div><div class="contact-item__label">Email</div><div class="contact-item__value"><a href="mailto:{{ company.email }}">{{ company.email }}</a></div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon">📍</div>
+            <div><div class="contact-item__label">Адрес</div><div class="contact-item__value">{{ company.address }}</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon">🌐</div>
+            <div>
+              <div class="contact-item__label">Соцсети</div>
+              <div class="socials" style="margin-top:8px">
+                {% for s in company.socials_list %}<a href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.label }}">{{ s.label }}</a>{% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <form class="form reveal" novalidate>
+            <h3 class="form__title">Напишите нам</h3>
+            <div class="form__row">
+              <div class="form__group">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                <div class="form__error">Введите имя</div>
+              </div>
+              <div class="form__group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@mail.com" required>
+                <div class="form__error">Введите корректный email</div>
+              </div>
+            </div>
+            <div class="form__group">
+              <label for="phone">Телефон</label>
+              <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__">
+            </div>
+            <div class="form__group">
+              <label for="message">Сообщение</label>
+              <textarea id="message" name="message" rows="5" placeholder="Расскажите о проекте" required></textarea>
+              <div class="form__error">Введите сообщение</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+            <div class="form__success">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
+        </div>
+
+        <div class="map reveal">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=76.88%2C43.22%2C76.94%2C43.25&layer=mapnik" title="Карта" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Услуги{% endblock %}
+{% block content %}
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-hero__title">Услуги</h1>
+      <p class="breadcrumbs"><a href="{% url 'home' %}">Главная</a> / Услуги</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="section__tag">Каталог</span>
+        <h2 class="section__title">Наши услуги и цены</h2>
+        <p class="section__text">Выберите подходящую услугу или свяжитесь с нами для индивидуального расчёта.</p>
+      </div>
+      <div class="services">
+        {% for s in services %}
+        <article class="service-card reveal">
+          <img src="{{ s.image.url }}" alt="{{ s.title }}" class="service-card__img">
+          <div class="service-card__body">
+            <h3 class="service-card__title">{{ s.title }}</h3>
+            <p class="service-card__text">{{ s.description }}</p>
+            <div class="service-card__footer">
+              <span class="service-card__price"><small>от</small> {{ s.price|floatformat:"0g" }} ₸</span>
+              <a href="{% url 'contacts' %}" class="btn btn-outline">Заказать</a>
+            </div>
+          </div>
+        </article>
+        {% empty %}
+        <p class="services__empty">Услуг пока нет</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="cta reveal">
+        <h2 class="cta__title">Готовы начать проект?</h2>
+        <p class="cta__text">Расскажите о задаче — мы предложим решение и рассчитаем стоимость бесплатно.</p>
+        <a href="{% url 'contacts' %}" class="btn">Оставить заявку</a>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
